@@ -7,9 +7,14 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
-# Old and new dataset directories
+# Ignore old dataset directory
 data/
-multilingual_data/
+
+# Ignore generated datasets
+/multilingual_data/*
+
+# Allow Git to track the folder placeholder
+!/multilingual_data/.gitkeep
 
 
 # Large generated files
