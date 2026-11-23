@@ -1,37 +1,39 @@
+
 name: Python CI
+
 on:
-    push:
-        branches:
-            - dev/pratham
+  push:
+    branches:
+      - dev/pratham
 
-    pull_request:
-        branches: 
-            - main
+  pull_request:
+    branches:
+      - main
 
-permission:
-    contents: read
+permissions:
+  contents: read
 
 jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
 
-        test:
-            name:test
-            runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-            steps:
-                - name :checkout repository
-                  uses: actions/checkout@v3
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-                - name: Configure Python
-                  uses : actions/setup-python@v5
-                    with:
-                        python-version: 3.12
-                - name: Install dependencies
-                  run: |
-                    python -m pip install --upgrade pip
-                    pip install -r requirements.txt
-                
-                -name : check python syntax
-                 run: python -m compileall -q config.py tests
-                
-                 -name: Run unit tests
-                  run: python -m unittest discover -s tests -p "test_*.py" -v
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Check Python syntax
+        run: python -m compileall -q config.py tests
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -p "test_*.py" -v
