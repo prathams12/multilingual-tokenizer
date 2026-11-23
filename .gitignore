@@ -1,19 +1,27 @@
-# Python environment
+
+# Virtual environment
 .venv/
+
+# Python cache
 __pycache__/
 *.pyc
+.pytest_cache/
 
-# Private credentials
-.env
-.env.*
-
-# Large datasets and generated artifacts
+# Old and new dataset directories
 data/
-artifacts/
+multilingual_data/
+
+
+# Large generated files
 *.parquet
+*.arrow
 *.jsonl
 *.zst
 
-# Temporary files
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Local logs
 *.log
-.ipynb_checkpoints/
