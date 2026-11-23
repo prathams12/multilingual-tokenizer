@@ -1,0 +1,19 @@
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+
+# Private credentials
+.env
+.env.*
+
+# Large datasets and generated artifacts
+data/
+artifacts/
+*.parquet
+*.jsonl
+*.zst
+
+# Temporary files
+*.log
+.ipynb_checkpoints/
