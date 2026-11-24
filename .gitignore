@@ -12,8 +12,6 @@ data/
 
 # Ignore generated datasets
 /multilingual_data/*
-/test_train,jsonl
-/test_train.jsonl
 
 # Allow Git to track the folder placeholder
 !/multilingual_data/.gitkeep
