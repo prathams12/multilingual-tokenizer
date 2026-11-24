@@ -48,7 +48,8 @@ def get_stream(dataset_name, configuration):
     
     return dataset
 
-def fill_split(source,output_path, target_chars):
+
+def fill_split(source,output_path,target_chars):
     
     output_path.parent.mkdir(
         parents=True, 
@@ -60,5 +61,50 @@ def fill_split(source,output_path, target_chars):
     
     with output_path.open("w",encoding="utf-8") as file:
         
+        while char_count < target_chars:
+            
+            try:
+                row = next(source)
+            
+            except StopIteration as error:
+                raise RuntimeError(
+                    f"Dataset exhausted before reaching the target character count of {target_chars}."
+                ) from error
+            
+            text = row.get("text")
+            
+            if isinstance(text, str) or not text.strip():
+                continue
+            
+            try:
+                text.encode("utf-8")
+            except UnicodeEncodeError:
+                continue
+            
+            remaining_chars = target_chars - char_count
+            
+            selected_text = text[:remaining_chars]
+            record = {"text": selected_text}
+            
+            file.write(
+                json.dumps(record, ensure_ascii=False) + "\n"
+            )
+            
+            char_count += len(selected_text)
+            document_count += 1
+            
+            if document_count % 1000 == 0:
+                print(
+                    f"{output_path}: "
+                    f"{char_count:,}/{target_chars:,} characters collected "
+                )
+    return {
         
+        "characters" : char_count, 
+        "documents" : document_count
+        
+        }
+
+
+
     
