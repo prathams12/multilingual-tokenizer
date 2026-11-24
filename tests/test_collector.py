@@ -10,14 +10,12 @@ documents = iter([
 train_stats = fill_split(
                 documents, 
                 Path("test_train.jsonl"), 
-                4
-    )
+                4)
 
 valid_stats = fill_split(
                 documents,
                 Path("test_valid.jsonl"),
-                4
-    )
+                4)
 
 print("Train Stats:", train_stats)
 print("Validation Stats:", valid_stats)
