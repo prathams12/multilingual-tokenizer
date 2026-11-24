@@ -12,6 +12,7 @@ from config import (
 )
 
 def make_quotas(total_chars):
+    
     """
     Calculate the number of characters to collect for each language based on the total character count
     and the specified percentages in LANGUAGES.
@@ -24,4 +25,9 @@ def make_quotas(total_chars):
     
     remaining_chars = total_chars - sum(quotas.values())
     if remaining_chars > 0:
+        # Distribute remaining characters to the last language in the qoutas dictionary
+        last_language = list(quotas.keys())[-1]
+        quotas[last_language] += remaining_chars
     
+    return quotas
+
