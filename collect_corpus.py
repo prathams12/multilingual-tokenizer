@@ -105,6 +105,7 @@ def fill_split(source,output_path,target_chars):
         
         }
 
-
+def collect_all(total_chars, valid_chars_per_lang):
+    
 
     
