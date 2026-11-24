@@ -31,3 +31,4 @@ def make_quotas(total_chars):
     
     return quotas
 
+def get_stream(dataset_name, configuration):
