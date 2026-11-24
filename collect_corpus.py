@@ -47,4 +47,18 @@ def get_stream(dataset_name, configuration):
     )
     
     return dataset
+
+def fill_split(source,output_path, target_chars):
+    
+    output_path.parent.mkdir(
+        parents=True, 
+        exist_ok=True
+    )
+    
+    char_count = 0
+    document_count = 0
+    
+    with output_path.open("w",encoding="utf-8") as file:
+        
+        
     
