@@ -19,4 +19,9 @@ def make_quotas(total_chars):
 
     quotas = {}
     for language, information in LANGUAGES.items():
+        
         quotas[language] = int(total_chars * information[2] / 100)
+    
+    remaining_chars = total_chars - sum(quotas.values())
+    if remaining_chars > 0:
+    
