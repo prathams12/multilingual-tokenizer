@@ -141,7 +141,48 @@ def collect_all(total_chars, valid_chars_per_lang):
             valid_chars_per_lang
         )
         
+        manifest["languages"][lang] = {
+            
+            "dataset_name" : dataset_name,
+            "configuration" : configuration,
+            "percentage" : percentage,
+            "train" : train_stats,
+            "validation" : valid_stats
+        }
         
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
         
+        with (OUT_DIR / "MANIFEST.json").open("w",encoding="utf-8") as file:
+            json.dump(
+                manifest, 
+                file, 
+                ensure_ascii=False, 
+                indent=2
+            )
+        
+        print(f"Corpus collection completed")
+
+
+if __name__ == "__main__":
+    
+    parser = argparse.ArgumentParser()
+    
+    parser.add_argument(
+        "--total_chars",
+        type=int,
+        default=100_000
+    )
+    
+    parser.add_argument(
+        "--valid_chars",
+        type=int,
+        default=1_000
+    )
+    
+    args = parser.parse_args()
+    
+    collect_all(args.total_chars, args.valid_chars)
+    
+            
 
     
