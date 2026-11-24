@@ -32,3 +32,19 @@ def make_quotas(total_chars):
     return quotas
 
 def get_stream(dataset_name, configuration):
+    
+    dataset = load_dataset(
+        dataset_name,
+        name=configuration,
+        split="train",
+        streaming=True,
+    )
+    
+    dataset = dataset.shuffle(
+        buffer_size=SHUFFLE_BUFFER, 
+        seed=SEED
+    
+    )
+    
+    return dataset
+    
