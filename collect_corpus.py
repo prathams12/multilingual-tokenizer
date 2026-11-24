@@ -168,13 +168,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     
     parser.add_argument(
-        "--total_chars",
+        "--total-chars",
         type=int,
         default=100_000
     )
     
     parser.add_argument(
-        "--valid_chars",
+        "--valid-chars",
         type=int,
         default=1_000
     )
