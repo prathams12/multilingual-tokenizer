@@ -19,4 +19,4 @@ def make_quotas(total_chars):
 
     quotas = {}
     for language, information in LANGUAGES.items():
-        
+        percentage = information[2]
