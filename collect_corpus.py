@@ -62,7 +62,7 @@ def fill_split(source,output_path,target_chars):
     with output_path.open("w",encoding="utf-8") as file:
         
         while char_count < target_chars:
-            
+            print(source)
             try:
                 row = next(source)
             
