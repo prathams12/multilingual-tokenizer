@@ -107,5 +107,41 @@ def fill_split(source,output_path,target_chars):
 
 def collect_all(total_chars, valid_chars_per_lang):
     
+    quotas = make_quotas(total_chars)
+    
+    manifest = {
+        
+        "target_training_characters" : total_chars,
+        "languages" : {}
+    }
+    
+    for lang, information in LANGUAGES.items():
+        
+        dataset_name, configuration, percentage = information
+        
+        print(f"Collecting Language: {lang}")
+        
+        dataset = get_stream(dataset_name, configuration)
+        
+        source = iter(dataset)
+        
+        train_path = OUT_DIR / "train" / f"{lang}.jsonl"
+        
+        train_stats = fill_split(
+            source, 
+            train_path, 
+            quotas[lang]
+        )
+        
+        valid_path = OUT_DIR / "validation" / f"{lang}.jsonl"
+        
+        valid_stats = fill_split(
+            source,
+            valid_path,
+            valid_chars_per_lang
+        )
+        
+        
+        
 
     
