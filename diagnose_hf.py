@@ -1,41 +1,71 @@
 
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parent / ".env")
+
+import argparse
+import os
+
 from datasets import load_dataset
 
 
-def test_spanish(shuffle=False):
+def test_spanish(shuffle, max_documents):
 
-    print(f"\nTesting Spanish | shuffle={shuffle}")
+    print(f"Shuffle enabled: {shuffle}")
 
     dataset = load_dataset(
         "HuggingFaceFW/fineweb-2",
         name="spa_Latn",
         split="train",
-        streaming=True
+        streaming=True,
+        token=os.getenv("HF_TOKEN") or None,
     )
 
     if shuffle:
         dataset = dataset.shuffle(
             seed=42,
-            buffer_size=32
+            buffer_size=32,
         )
 
-    for index, document in enumerate(dataset):
+    documents_read = 0
 
+    for document in dataset:
         text = document["text"]
 
+        documents_read += 1
+
         print(
-            f"Document {index + 1}: "
+            f"Document {documents_read}: "
             f"{len(text):,} code points"
         )
 
-        if index == 9:
+        if documents_read >= max_documents:
             break
 
-    print("Test completed successfully!")
+    print(
+        f"Completed reading {documents_read} documents."
+    )
 
 
 if __name__ == "__main__":
 
-    #test_spanish(shuffle=False)
+    parser = argparse.ArgumentParser()
 
-    test_spanish(shuffle=True)
+    parser.add_argument(
+        "--shuffle",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "--docs",
+        type=int,
+        default=10,
+    )
+
+    args = parser.parse_args()
+
+    test_spanish(
+        shuffle=args.shuffle,
+        max_documents=args.docs,
+    )
