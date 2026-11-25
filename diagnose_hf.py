@@ -36,6 +36,6 @@ def test_spanish(shuffle=False):
 
 if __name__ == "__main__":
 
-    test_spanish(shuffle=False)
+    #test_spanish(shuffle=False)
 
-    #test_spanish(shuffle=True)
+    test_spanish(shuffle=True)
