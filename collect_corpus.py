@@ -1,11 +1,13 @@
 import argparse
 import json
 from datasets import load_dataset
-from pathalib import Path
+from pathlib import Path
 from dotenv import load_dotenv
 import os
 
 
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
 
 
 
@@ -40,11 +42,14 @@ def make_quotas(total_chars):
 
 def get_stream(dataset_name, configuration):
     
+    HF_TOKEN = os.getenv("HF_TOKEN")
+    
     dataset = load_dataset(
         dataset_name,
         name=configuration,
         split="train",
         streaming=True,
+        token=HF_TOKEN or None,
     )
     
     dataset = dataset.shuffle(
