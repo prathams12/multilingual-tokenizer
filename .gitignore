@@ -16,6 +16,10 @@ data/
 # Allow Git to track the folder placeholder
 !/multilingual_data/.gitkeep
 
+# Credentials
+.env
+.env.*
+!.env.example
 
 # Large generated files
 *.parquet
