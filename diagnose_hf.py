@@ -26,8 +26,8 @@ def test_spanish(shuffle, max_documents):
         dataset = dataset.shuffle(
             seed=42,
             buffer_size=32,
-            max_
-        )
+            max_buffer_input_shards=1, 
+            )
 
     documents_read = 0
 
